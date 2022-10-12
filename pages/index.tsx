@@ -8,6 +8,8 @@ import Head from "next/head";
 interface IAuthor {
   id: string;
   name: string;
+  email: string;
+  phone: string;
   intro: string;
   bio: string;
   profession: string;
@@ -19,10 +21,15 @@ interface ISocials {
   facebookUrl: string;
   twitterUrl: string;
 }
+interface ISkill {
+  id: string;
+  title: string;
+}
 
 export interface IUser {
   author: IAuthor;
   socials: ISocials;
+  skills: ISkill[];
 }
 
 interface Props {
@@ -43,6 +50,8 @@ const Home: NextPage<Props> = ({ user }) => {
   );
 };
 
+// from: https://hygraph.com/
+
 const QUERY = gql`
   {
     socials {
@@ -52,6 +61,8 @@ const QUERY = gql`
     author(where: { slug: "md-eahea-ratan" }) {
       id
       name
+      email
+      phone
       intro
       bio
       profession
@@ -59,20 +70,29 @@ const QUERY = gql`
         url
       }
     }
+    skills {
+      id
+      title
+    }
   }
 `;
 
 export async function getStaticProps() {
-  const { author, socials } = await hygraph.request(QUERY);
+  try {
+    const { author, socials, skills } = await hygraph.request(QUERY);
 
-  return {
-    props: {
-      user: {
-        author: author,
-        socials: socials,
+    return {
+      props: {
+        user: {
+          author,
+          socials,
+          skills,
+        },
       },
-    },
-  };
+    };
+  } catch (error) {
+    return { props: null, error: error };
+  }
 }
 
 export default Home;
