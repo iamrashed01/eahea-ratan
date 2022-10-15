@@ -36,7 +36,7 @@ interface Props {
   user: IUser;
 }
 
-const Home: NextPage<Props> = ({ user }) => {
+const Home: NextPage<Props> = (props) => {
   return (
     <>
       <Head>
@@ -45,7 +45,7 @@ const Home: NextPage<Props> = ({ user }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Hero user={user} />
+      {props?.user && <Hero user={props?.user} />}
     </>
   );
 };
@@ -91,7 +91,7 @@ export async function getStaticProps() {
       },
     };
   } catch (error) {
-    return { props: null, error: error };
+    return { props: {} };
   }
 }
 
