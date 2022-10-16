@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        secondary: ["Style Script", "cursive"],
+        secondary: ["Fuzzy Bubbles", "cursive"],
         "fira-code": ["Fira Code", "monospace"],
       },
       colors: {

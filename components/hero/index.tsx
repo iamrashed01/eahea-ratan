@@ -1,7 +1,7 @@
 import anime from "animejs";
 import { IUser } from "pages";
-import randomColor from "randomcolor";
 import { useEffect } from "react";
+import { AiOutlineLink } from "react-icons/ai";
 
 type Props = {
   user: IUser;
@@ -89,6 +89,7 @@ const UserInfo = ({ user }: Props) => {
       delay: 1200,
     });
   }, []);
+
   return (
     <>
       <h2
@@ -138,9 +139,7 @@ const UserInfo = ({ user }: Props) => {
               <span
                 className={`${i !== 0 && "ml-2"}`}
                 style={{
-                  color: randomColor({
-                    luminosity: "light",
-                  }),
+                  color: user.color,
                 }}
               >
                 {skill.title}
@@ -152,17 +151,23 @@ const UserInfo = ({ user }: Props) => {
           Social:
         </h3>
         <ul className="mt-4">
-          <li className="inline-block text-gray-600 font-secondary text-xl">
-            <span
-              style={{
-                color: randomColor({
-                  luminosity: "light",
-                }),
-              }}
+          {user?.socials?.map((social) => (
+            <li
+              key={social.id}
+              className="inline-block text-gray-600 font-secondary text-xl mr-5"
             >
-              {user.socials.facebookUrl}
-            </span>
-          </li>
+              <a
+                className="flex items-center gap-2"
+                href={social.url}
+                style={{
+                  color: user.color,
+                }}
+              >
+                <AiOutlineLink />
+                {social.title}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </>

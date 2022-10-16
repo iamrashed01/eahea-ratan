@@ -4,6 +4,7 @@ import { hygraph } from "config/hygraph.config";
 import { gql } from "graphql-request";
 import type { NextPage } from "next";
 import Head from "next/head";
+import randomColor from "randomcolor";
 
 interface IAuthor {
   id: string;
@@ -17,9 +18,10 @@ interface IAuthor {
     url: string;
   };
 }
-interface ISocials {
-  facebookUrl: string;
-  twitterUrl: string;
+interface ISocial {
+  id: string;
+  title: string;
+  url: string;
 }
 interface ISkill {
   id: string;
@@ -28,8 +30,9 @@ interface ISkill {
 
 export interface IUser {
   author: IAuthor;
-  socials: ISocials;
+  socials: ISocial[];
   skills: ISkill[];
+  color: string;
 }
 
 interface Props {
@@ -37,6 +40,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = (props) => {
+  console.log(props, "props");
   return (
     <>
       <Head>
@@ -55,8 +59,9 @@ const Home: NextPage<Props> = (props) => {
 const QUERY = gql`
   {
     socials {
-      facebookUrl
-      twitterUrl
+      id
+      title
+      url
     }
     author(where: { slug: "md-eahea-ratan" }) {
       id
@@ -87,11 +92,14 @@ export async function getStaticProps() {
           author,
           socials,
           skills,
+          color: randomColor({
+            luminosity: "light",
+          }),
         },
       },
     };
-  } catch (error) {
-    return { props: {} };
+  } catch (err) {
+    return { props: { error: err } };
   }
 }
 
