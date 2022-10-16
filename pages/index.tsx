@@ -18,11 +18,13 @@ interface IAuthor {
     url: string;
   };
 }
+
 interface ISocial {
   id: string;
   title: string;
   url: string;
 }
+
 interface ISkill {
   id: string;
   title: string;
@@ -99,7 +101,7 @@ export async function getStaticProps() {
       },
     };
   } catch (err) {
-    return { props: { error: err } };
+    return { props: {} };
   }
 }
 

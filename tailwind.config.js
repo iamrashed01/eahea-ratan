@@ -8,7 +8,8 @@ module.exports = {
         "fira-code": ["Fira Code", "monospace"],
       },
       colors: {
-        secondary: "#101010",
+        primary: "#125df3",
+        secondary: "#151515",
       },
     },
   },

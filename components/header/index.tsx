@@ -16,21 +16,22 @@ export default function Header({}: Props) {
     });
     anime({
       targets: "#contact_button",
-      translateY: -10,
       opacity: 1,
       easing: "easeInOutQuad",
       delay: 400,
     });
   }, []);
   return (
-    <div className="fixed left-0 top-0 px-12 py-3 bg-black border-b border-gray-900 w-full flex items-center justify-between text-white font-extrabold">
+    <div className="fixed left-0 top-0 z-50 bg-opacity-80 px-12 py-3 bg-black border-b border-gray-900 w-full flex items-center justify-between text-white font-extrabold">
       <Logo />
-      <button
+      <a
+        download
+        href="/resume-eahea-ratan.pdf"
         id="contact_button"
         className="py-2 px-3 opacity-0 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold rounded-md shadow focus:outline-none"
       >
-        Contact Me
-      </button>
+        Download CV
+      </a>
     </div>
   );
 }
@@ -39,7 +40,6 @@ const Logo = React.memo(() => {
   return (
     <svg
       id="logo"
-      // width="219.9"
       height="50"
       viewBox="0 0 219.9 85.5"
       xmlns="http://www.w3.org/2000/svg"
